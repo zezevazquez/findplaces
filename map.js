@@ -8,12 +8,12 @@ const request = {
   types: ['bar']
 }
 const mapControls = {
+  zoom: 13,
   center: center,
-  zoom: 15,
   mapTypeControl: true,
   mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-      position: google.maps.ControlPosition.TOP_RIGHT
+      style: google.maps.MapTypeControlStyle.DEFAULT,
+      position: google.maps.ControlPosition.BOTTOM_CENTER
   },
   zoomControl: false,
   zoomControlOptions: {
@@ -98,14 +98,14 @@ function initialSearch(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (let i = 0; i < results.length; i++) {
       createMarker(results[i])
-      placesList.innerHTML += '<li>' + results[i].name + '</li>'
+      placesList.innerHTML += '<li>' + (i+1) + '- ' + results[i].name + '</li>'
       bounds.extend(results[i].geometry.location)
     }
     map.fitBounds(bounds)
   }
 }
 
-function createMarker(place, timeout) {
+function createMarker(place) {
   let markerSpecs = {
     map: map,
     title: place.name,
